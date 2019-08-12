@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <body>
+
+    <h1>Survey Page</h1>
+    <p>Basic information here</p>
+
+    {% block content %}
+
+    <form action="." method="post">
+        
+        <table>
+            {{ userinfoform }}
+        </table>
+        
+        <br><br>
+
+        <table>
+            {{ userscheduleform.as_table }}
+        </table>
+        
+        <br><br>
+
+        <table>
+            {{ familyinfoform.as_table }}
+        </table>
+
+        <br><br>
+        
+        <input type="submit" value="Submit Button">
+    </form>
+
+    {% endblock content %}
+
+    </body>
+</html>
