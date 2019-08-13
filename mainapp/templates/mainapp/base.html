@@ -40,8 +40,14 @@
                 <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'home' %}">Home</a></li>
                 <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'about' %}">About</a></li>
                 <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'newapp' %}">Create New Contact</a></li>
+                <!-- logout options for when user is logged in -->
+                {% if user.is_authenticated %}
+                <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a></li>
+
+                {% else %}
                 <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'login' %}">Login</a></li>
                 <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'register' %}">Register</a></li>
+                {% endif %}
               </ul>
             </p>
           </div>
