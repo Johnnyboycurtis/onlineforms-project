@@ -13,13 +13,22 @@ class UserInfo(models.Model):
     name = models.CharField(max_length = 100)
     email = models.CharField(max_length = 100, default='something-{}@gmail.com'.format(rand()))
     age = models.IntegerField(default = random.randint(a=22, b=45))
+    
+    class Meta:
+        verbose_name_plural = "UserInfo"
 
 class ProgrammingLanguages(models.Model):
     userid = models.ForeignKey('UserInfo', on_delete=models.CASCADE)
     name = models.CharField(max_length = 100)
     skill = models.CharField(max_length = 100, choices = SKILL_CHOICES)
 
+    class Meta:
+        verbose_name_plural = "ProgrammingLanguages"
+
 class Sports(models.Model):
     userid = models.ForeignKey('UserInfo', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     skill = models.CharField(max_length=100, choices = SKILL_CHOICES)
+
+    class Meta:
+        verbose_name_plural = "Sports"
