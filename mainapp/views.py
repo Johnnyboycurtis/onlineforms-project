@@ -1,20 +1,20 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import UserInfoForm, LanguagesFormSet, SportsFormSet
+from django.contrib import messages
 
 def home(request):
     return render(request, 'mainapp/home.html')
 
 def newapp(request):
     context = {'userinfoform': UserInfoForm}
-    #print(dir(request))
-    print(request.method)
     if request.method == "POST":
         print(request.POST)
         form = UserInfoForm(request.POST)
         print(form)
         if form.is_valid():
-            print("form is valid")
-            return render(request, 'mainapp/home.html', {'form': form})
+            form.save()
+            messages.success(request, "form is valid!")
+            return redirect('home') #render(request, 'mainapp/home.html', {'form': form})
     return render(request, 'mainapp/newapp.html', context)
 
 
