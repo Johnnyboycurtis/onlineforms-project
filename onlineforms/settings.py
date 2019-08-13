@@ -121,4 +121,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = 'home' # mainapp/home
+LOGIN_REDIRECT_URL = 'profile' # mainapp/home
+LOGIN_URL = 'login'
