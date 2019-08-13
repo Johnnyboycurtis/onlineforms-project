@@ -1,4 +1,16 @@
 {% extends "mainapp/base.html" %}
 {% block content %}
 <h1>Register New User </h1>
+<br><br>
+
+<div class = "content-section">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Submit</button>
+        </div>
+    </form>
+
+</div>
 {% endblock content %}
