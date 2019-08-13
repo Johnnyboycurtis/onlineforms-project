@@ -5,15 +5,18 @@ from django.contrib import messages
 def home(request):
     return render(request, 'mainapp/home.html')
 
+def about(request):
+    return render(request, 'mainapp/about.html')
+
 def newapp(request):
     context = {'userinfoform': UserInfoForm}
     if request.method == "POST":
-        print(request.POST)
+        #print(request.POST)
         form = UserInfoForm(request.POST)
-        print(form)
+        #print(form)
         if form.is_valid():
             form.save()
-            messages.success(request, "form is valid!")
+            messages.success(request, "Saved new contact!")
             return redirect('home') #render(request, 'mainapp/home.html', {'form': form})
     return render(request, 'mainapp/newapp.html', context)
 
