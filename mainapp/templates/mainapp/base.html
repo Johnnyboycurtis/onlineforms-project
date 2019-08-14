@@ -8,18 +8,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'mainapp/main.css' %}">
 
     {% if title %}
-        <title>Django Blog - {{ title }}</title>
+        <title>UPDATE TITLE - {{ title }}</title>
     {% else %}
-        <title>Django Blog</title>
+        <title>Django Online Forms</title>
     {% endif %}
     
 </head>
 <body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+          <div class="container">
+            <a class="navbar-brand mr-4" href="{% url 'home' %}">Django Online Forms</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggle">
+              <div class="navbar-nav mr-auto">
+                <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
+                <a class="nav-item nav-link" href="{% url 'about' %}">About</a>
+              </div>
+              <!-- Navbar Right Side -->
+              <div class="navbar-nav">
+                <a class="nav-item nav-link" href="#">Login</a>
+                <a class="nav-item nav-link" href="#">Register</a>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+
     <main role="main" class="container">
       <div class="row">
         <div class="col-md-8">
@@ -39,9 +62,10 @@
               <ul class="list-group">
                 <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'home' %}">Home</a></li>
                 <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'about' %}">About</a></li>
-                <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'newapp' %}">Create New Contact</a></li>
                 <!-- logout options for when user is logged in -->
                 {% if user.is_authenticated %}
+                <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'newapp' %}">Create New Contact</a></li>
+                <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'home' %}">Edit Existing Contact</a></li>
                 <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a></li>
                 <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a></li>
 
