@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import UserInfoForm, LanguagesFormSet, SportsFormSet
+from .forms import ContactsForm, LanguagesFormSet, SportsFormSet
 from django.contrib import messages
 
 def home(request):
@@ -9,11 +9,11 @@ def about(request):
     return render(request, 'mainapp/about.html')
 
 def newapp(request):
-    context = {'userinfoform': UserInfoForm}
+    context = {'userinfoform': ContactsForm}
     if request.method == "POST":
         #print(request.POST)
-        form = UserInfoForm(request.POST)
-        #print(form)
+        form = ContactsForm(request.POST)
+        print(form)
         if form.is_valid():
             form.save()
             messages.success(request, "Saved new contact!")
@@ -21,9 +21,12 @@ def newapp(request):
     return render(request, 'mainapp/newapp.html', context)
 
 
-def appform(request, userid):
-    context = {'userinfoform': UserInfoForm, 'languagesform': LanguagesFormSet, 'sportsform': SportsFormSet}
-    return render(request, 'mainapp/<userid>/appform.html', context)
+def appform(request):
+    return render(request, 'mainapp/home.html')
+
+#def appform(request, userid):
+#    context = {'userinfoform': ContactsForm, 'languagesform': LanguagesFormSet, 'sportsform': SportsFormSet}
+#    return render(request, 'mainapp/<userid>/appform.html', context)
 
 """
 def edit_appform(request, userid):

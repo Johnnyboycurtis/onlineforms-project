@@ -9,18 +9,26 @@ def rand():
 
 SKILL_CHOICES = [('Beginner', 'Beginner'), ('Moderate', 'Moderate'), ('Expert', 'Expert')]
 
-class UserInfo(models.Model):
+
+class Dummy(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    userid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length = 100)
+    age = models.CharField(max_length = 100)
+    
+    class Meta:
+        verbose_name_plural = "Dummy"
+
+class Contacts(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length = 100)
     email = models.CharField(max_length = 100, default='something-{}@gmail.com'.format(rand()))
     age = models.IntegerField(default = random.randint(a=22, b=45))
     
     class Meta:
-        verbose_name_plural = "UserInfo"
+        verbose_name_plural = "Contacts"
 
 class ProgrammingLanguages(models.Model):
-    userid = models.ForeignKey('UserInfo', on_delete=models.CASCADE)
+    contact = models.ForeignKey(Contacts, on_delete=models.CASCADE)
     name = models.CharField(max_length = 100)
     skill = models.CharField(max_length = 100, choices = SKILL_CHOICES)
 
@@ -28,7 +36,8 @@ class ProgrammingLanguages(models.Model):
         verbose_name_plural = "ProgrammingLanguages"
 
 class Sports(models.Model):
-    userid = models.ForeignKey('UserInfo', on_delete=models.CASCADE)
+    #userid = models.ForeignKey('ContactInfo', on_delete=models.CASCADE)
+    contact = models.ForeignKey(Contacts, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     skill = models.CharField(max_length=100, choices = SKILL_CHOICES)
 

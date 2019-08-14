@@ -1,10 +1,10 @@
 from django.forms import ModelForm
-from .models import UserInfo, ProgrammingLanguages, Sports
+from .models import Contacts, ProgrammingLanguages, Sports
 from django.forms import formset_factory
 
-class UserInfoForm(ModelForm):
+class ContactsForm(ModelForm):
     class Meta:
-        model = UserInfo
+        model = Contacts
         fields = ['name', 'email', 'age']
 
 
