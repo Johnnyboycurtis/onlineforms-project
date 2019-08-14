@@ -14,6 +14,7 @@ class Contacts(models.Model):
     name = models.CharField(max_length = 100)
     email = models.CharField(max_length = 100, default='something-{}@gmail.com'.format(rand()))
     age = models.IntegerField(default = random.randint(a=22, b=45))
+    date_created = models.DateTimeField(auto_now_add=True)
     
     class Meta:
         verbose_name_plural = "Contacts"
