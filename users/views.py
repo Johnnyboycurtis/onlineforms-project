@@ -9,6 +9,7 @@ def register(request):
         #form = UserCreationForm(request.POST)
         form = UserRegisterForm(request.POST)
         if form.is_valid():
+            print("\nFORM IS VALID\n")
             username = form.cleaned_data.get("username")
             form.save()
             messages.success(request, "User {} created!".format(username))
