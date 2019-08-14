@@ -11,7 +11,7 @@ def about(request):
 
 
 @login_required
-def newapp(request):
+def createcontact(request):
     context = {'userinfoform': ContactsForm}
     if request.method == "POST":
         form = ContactsForm(request.POST)
@@ -21,7 +21,7 @@ def newapp(request):
             instance.save()
             messages.success(request, "Saved new contact!")
             return redirect('home') #render(request, 'mainapp/home.html', {'form': form})
-    return render(request, 'mainapp/newapp.html', context)
+    return render(request, 'mainapp/createcontact.html', context)
 
 
 def appform(request):
