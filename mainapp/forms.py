@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from .models import Contacts, ProgrammingLanguages, Sports
-from django.forms import formset_factory
+from django.forms import modelformset_factory
 
 class ContactsForm(ModelForm):
     class Meta:
@@ -23,5 +23,5 @@ class SportsForm(ModelForm):
 
 
 
-LanguagesFormSet = formset_factory(LanguagesForm, extra = 1)
-SportsFormSet = formset_factory(SportsForm, extra = 1)
+LanguagesFormSet = modelformset_factory(ProgrammingLanguages, fields = ('name', 'skill'), extra = 5, max_num = 5)
+SportsFormSet = modelformset_factory(Sports, fields = ('name', 'skill'), extra = 5, max_num = 5)
