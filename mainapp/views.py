@@ -35,6 +35,11 @@ def createcontact(request):
 @login_required
 def detailedview(request, id):
     contact = Contacts.objects.get(pk = id)
-    print(contact)
+    #print(dir(contact))
     return render(request, 'mainapp/detailedview.html', {'contact': contact})
 
+@login_required
+def editview(request, id):
+    contact = Contacts.objects.get(pk = id)
+    
+    return render(request, 'mainapp/home.html')
