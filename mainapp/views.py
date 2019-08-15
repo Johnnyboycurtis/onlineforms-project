@@ -32,7 +32,9 @@ def createcontact(request):
             return redirect('home') #render(request, 'mainapp/home.html', {'form': form})
     return render(request, 'mainapp/createcontact.html', context)
 
-
-def appform(request):
-    return render(request, 'mainapp/home.html')
+@login_required
+def detailedview(request, id):
+    contact = Contacts.objects.get(pk = id)
+    print(contact)
+    return render(request, 'mainapp/detailedview.html', {'contact': contact})
 
