@@ -1,0 +1,25 @@
+{% extends "mainapp/base.html" %}
+
+{% block content %}
+
+
+    <h1>{{ title }}</h1>
+    <br>
+    <h5>Edit the form below</h5>
+    <br>
+
+    <form method = "POST">
+        {% csrf_token %}
+
+        {% for form in formset %}
+        <article class="media content-section">
+            <div class="media-body">
+                <b>Name: </b> {{ form.name }}  <b>Skill: </b> {{ form.skill }}
+            </div>
+        </article>
+        {% endfor %}
+
+        <button type = "submit">Submit</button>
+    </form>
+
+{% endblock content %}
