@@ -3,12 +3,12 @@ from django.contrib.auth.decorators import login_required
 from .forms import ContactsForm, LanguagesFormSet, SportsFormSet
 from django.contrib import messages
 
-from .models import Contacts
+from .models import Contacts, ProgrammingLanguages, Sports
 
 def home(request):
     context = {'title': 'Home'}
     if request.method == "GET" and request.user.is_authenticated:
-        print("print out the user's contacts now")
+        #print("print out the user's contacts now")
         context['contacts'] = Contacts.objects.all()
         return render(request, 'mainapp/home.html', context)
 
@@ -41,5 +41,26 @@ def detailedview(request, id):
 @login_required
 def editview(request, id):
     contact = Contacts.objects.get(pk = id)
-    
-    return render(request, 'mainapp/home.html')
+    queryset = ProgrammingLanguages.objects.filter(contact_id = contact.id)
+    formset = LanguagesFormSet(queryset = queryset)
+    context = {'formset': formset, 'title': 'Edit View'}
+    return render(request, 'mainapp/editview.html', context)
+
+
+"""
+@login_required
+def editview(request, id):
+    contact = Contacts.objects.get(pk = id)
+    queryset = ProgrammingLanguages.objects.filter(id = contact.id)
+
+    if request.method == "POST":
+        formset = LanguagesFormSet(request.POST, queryset = queryset)
+        print(dir(formset))
+        if formset.is_valid():
+            instance = formset.save(commit = False)
+            instance.contact = contact
+            instance.save()
+    formset = LanguagesFormSet(queryset = queryset)
+    context = {'formset': formset, 'title': 'Edit View'}
+    return render(request, 'mainapp/editview.html', context)
+"""
