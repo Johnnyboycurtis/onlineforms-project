@@ -42,6 +42,17 @@ def detailedview(request, id):
 def editview(request, id):
     contact = Contacts.objects.get(pk = id)
     queryset = ProgrammingLanguages.objects.filter(contact_id = contact.id)
+    if request.method == "POST":
+        formset = LanguagesFormSet(request.POST, queryset = queryset)
+        formset.contact = contact
+        if formset.is_valid():
+            instances = formset.save(commit=False) # instances is just a list
+            for instance in instances:
+                #print(dir(instance))
+                instance.contact = contact
+                instance.save()
+            return redirect('editview', id=id)
+
     formset = LanguagesFormSet(queryset = queryset)
     context = {'formset': formset, 'title': 'Edit View'}
     return render(request, 'mainapp/editview.html', context)
