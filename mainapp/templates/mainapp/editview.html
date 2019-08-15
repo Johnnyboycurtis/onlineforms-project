@@ -10,11 +10,12 @@
 
     <form method = "POST">
         {% csrf_token %}
-
+        {{ formset.management_form }}
         {% for form in formset %}
         <article class="media content-section">
             <div class="media-body">
                 <b>Name: </b> {{ form.name }}  <b>Skill: </b> {{ form.skill }}
+                <div style display="none">{{ form.id }}</div>
             </div>
         </article>
         {% endfor %}
