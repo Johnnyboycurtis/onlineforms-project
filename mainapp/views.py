@@ -42,16 +42,21 @@ def detailedview(request, id):
 @login_required
 def editview(request, id):
     contact = Contacts.objects.get(pk = id)
-    LanguagesFormSet = inlineformset_factory(Contacts, ProgrammingLanguages, fields = ('name', 'skill'))
+    LanguagesFormSet = inlineformset_factory(Contacts, ProgrammingLanguages, fields = ('name', 'skill'), extra=5, max_num=5)
+    SportsFormSet = inlineformset_factory(Contacts, Sports, fields = ('name', 'skill'), extra=5, max_num=5)
 
     if request.method == "POST":
         formset = LanguagesFormSet(request.POST, instance = contact)
-        formset.contact = contact
+        sportsform = SportsFormSet(request.POST, instance = contact)
         if formset.is_valid():
             formset.save()
+        if sportsform.is_valid():
+            sportsform.save()
+        if formset.is_valid() or sportsform.is_valid():
             messages.success(request, "Saved new information")
             return redirect('editview', id=id)
 
     formset = LanguagesFormSet(instance = contact)
-    context = {'formset': formset, 'title': 'Edit View'}
+    sportsform = SportsFormSet(instance = contact)
+    context = {'formset': formset, 'title': 'Edit View', 'sportsform': sportsform}
     return render(request, 'mainapp/editview.html', context)

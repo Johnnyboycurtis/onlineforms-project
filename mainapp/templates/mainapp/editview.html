@@ -8,7 +8,11 @@
     <h5>Edit the form below</h5>
     <br>
 
+
     <form method = "POST">
+    <br>
+    <h2>Programming Languages</h2>
+    <br>
         {% csrf_token %}
         {{ formset.management_form }}
         {% for form in formset %}
@@ -20,7 +24,22 @@
         </article>
         {% endfor %}
 
-        <button type = "submit">Submit</button>
+    <br>
+    <h2>Sports</h2>
+    <br>
+        {{ sportsform.management_form }}
+        {% for form in sportsform %}
+        <article class="media content-section">
+            <div class="media-body">
+                <b>Name: </b> {{ form.name }}  <b>Skill: </b> {{ form.skill }}
+                <div style display="none">{{ form.id }}</div>
+            </div>
+        </article>
+        {% endfor %}
+
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Submit</button>
+        </div>
     </form>
 
 {% endblock content %}
