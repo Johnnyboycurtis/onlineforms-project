@@ -23,5 +23,5 @@ class SportsForm(ModelForm):
 
 
 
-LanguagesFormSet = modelformset_factory(ProgrammingLanguages, fields = ('name', 'skill'), extra = 5, max_num = 5)
-SportsFormSet = modelformset_factory(Sports, fields = ('name', 'skill'), extra = 5, max_num = 5)
+#LanguagesFormSet = modelformset_factory(ProgrammingLanguages, fields = ('name', 'skill'), extra = 5, max_num = 5)
+#SportsFormSet = modelformset_factory(Sports, fields = ('name', 'skill'), extra = 5, max_num = 5)
