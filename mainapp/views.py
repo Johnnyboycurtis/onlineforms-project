@@ -51,6 +51,7 @@ def editview(request, id):
                 #print(dir(instance))
                 instance.contact = contact
                 instance.save()
+            messages.success(request, "Saved new information")
             return redirect('editview', id=id)
 
     formset = LanguagesFormSet(queryset = queryset)
