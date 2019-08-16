@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .forms import ContactsForm, LanguagesFormSet, SportsFormSet
+from .forms import ContactsForm
 from django.contrib import messages
-
+from django.forms import inlineformset_factory
 from .models import Contacts, ProgrammingLanguages, Sports
 
 def home(request):
@@ -13,6 +13,7 @@ def home(request):
         return render(request, 'mainapp/home.html', context)
 
     return render(request, 'mainapp/home.html', context)
+
 
 def about(request):
     context = {'title': 'About'}
@@ -41,19 +42,16 @@ def detailedview(request, id):
 @login_required
 def editview(request, id):
     contact = Contacts.objects.get(pk = id)
-    queryset = ProgrammingLanguages.objects.filter(contact_id = contact.id)
+    LanguagesFormSet = inlineformset_factory(Contacts, ProgrammingLanguages, fields = ('name', 'skill'))
+
     if request.method == "POST":
-        formset = LanguagesFormSet(request.POST, queryset = queryset)
+        formset = LanguagesFormSet(request.POST, instance = contact)
         formset.contact = contact
         if formset.is_valid():
-            instances = formset.save(commit=False) # instances is just a list
-            for instance in instances:
-                #print(dir(instance))
-                instance.contact = contact
-                instance.save()
+            formset.save()
             messages.success(request, "Saved new information")
             return redirect('editview', id=id)
 
-    formset = LanguagesFormSet(queryset = queryset)
+    formset = LanguagesFormSet(instance = contact)
     context = {'formset': formset, 'title': 'Edit View'}
     return render(request, 'mainapp/editview.html', context)
