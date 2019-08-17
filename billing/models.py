@@ -26,9 +26,17 @@ class BillHeader(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE, related_name = "user")
     date_created = models.DateTimeField(auto_now_add = True)
     date_submitted = models.DateTimeField(auto_now_add = False, null=True)
-    company = models.ForeignKey(Company, related_name = "company")
+    #company = models.ForeignKey(Company, related_name = "company")
+    company_name = models.CharField(primary_key=True, max_length = 100)
+    street_address = models.CharField(max_length = 100, default = "123 Internet Street")
+    city = models.CharField(max_length = 100, default = "Downtown")
+    state = models.CharField(max_length = 2, default = "CA", choices = STATE_CHOICES)
+    phone = models.CharField(max_length = 10, default = "7601234567")
+    email = models.EmailField(max_length = 100, default = "billing@company.com")
 
 
-class BillLines(models.Model)
-
-
+class BillLines(models.Model):
+    header = models.ForeignKey(BillHeader)
+    description = models.TextField(default = "labor at $75/hour")
+    quantity = models.IntegerField()
+    unit_price = models.DecimalField(decimal_places = 2)
