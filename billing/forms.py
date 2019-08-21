@@ -1,4 +1,4 @@
-from django.form import ModelForm
+from django.forms import ModelForm, inlineformset_factory
 from .models import BillHeader, BillLines
 
 

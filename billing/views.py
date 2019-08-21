@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from .forms import BillHeaderForm, BillLineFormSet
 from .models import BillHeader, BillLines
+from django.views.generic.edit import CreateView, UpdateView
 
 
 @login_required
@@ -25,6 +27,33 @@ def createinvoice(request, user_id):
             return redirect('createinvoice', user_id=user_id)
     context = {'title': 'Create New Invoice', 'form': BillHeaderForm}
     return render(request, 'billing/createinvoice.html', context=context)
+
+
+
+
+@method_decorator(login_required, name='dispatch')
+class BillHeaderCreate(CreateView):
+    model = BillHeader
+    template_name = 'billing/createinvoice.html'
+    fields = ['company_name', 'street_address', 'city', 'state', 'phone', 'email']
+    success_url = '/'
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+
+@method_decorator(login_required, name='dispatch')
+class UpdateBillHeader(UpdateView):
+    model = BillHeader
+    template_name = 'billing/createinvoice.html'
+    fields = ['company_name', 'street_address', 'city', 'state', 'phone', 'email']
+    success_url = '/'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
 
 
 @login_required

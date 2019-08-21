@@ -26,7 +26,7 @@ class BillHeader(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE, related_name = "user")
     date_created = models.DateTimeField(auto_now_add = True)
     date_submitted = models.DateTimeField(auto_now_add = False, null=True) # update when submitted
-    submitted = models.BooleanField(required=False) # update when submitted
+    submitted = models.BooleanField(default=False) # update when submitted
     company_name = models.CharField(primary_key=True, max_length = 100)
     street_address = models.CharField(max_length = 100, default = "123 Internet Street")
     city = models.CharField(max_length = 100, default = "Downtown")
