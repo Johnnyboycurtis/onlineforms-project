@@ -36,7 +36,7 @@ class BillHeader(models.Model):
 
 
 class BillLines(models.Model):
-    header = models.ForeignKey(BillHeader)
+    header = models.ForeignKey(BillHeader, on_delete=models.CASCADE)
     description = models.TextField(default = "labor at $75/hour")
     quantity = models.IntegerField()
-    unit_price = models.DecimalField(decimal_places = 2)
+    unit_price = models.DecimalField(decimal_places = 2, max_digits=10000)
