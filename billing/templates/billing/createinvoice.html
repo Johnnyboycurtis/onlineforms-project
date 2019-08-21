@@ -1,0 +1,19 @@
+{% extends "mainapp/base.html" %}
+{% block content %}
+
+<h1>Create New Contact</h1>
+<p>Basic information here</p>
+
+<form action="." method="post"> {% csrf_token %}
+
+    
+    <table>
+        {{ userinfoform.as_table }}
+    </table>
+    
+    <br><br>
+    
+    <input type="submit" value="Submit Button">
+</form>
+
+{% endblock content %}
