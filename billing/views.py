@@ -7,7 +7,7 @@ from .models import BillHeader, BillLines
 from django.views.generic.edit import CreateView, UpdateView
 from django.utils import timezone
 from django.views.generic.list import ListView
-
+from django.urls import reverse
 
 @login_required
 def invoicelistview(request):
@@ -56,9 +56,48 @@ class UpdateBillHeader(UpdateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        context['title'] = 'Billing Update View'
+        return context
+
+
+
+@method_decorator(login_required, name='dispatch')
+class UpdateInvoice(UpdateView):
+    model = BillHeader
+    template_name = 'billing/editinvoice.html'
+    fields = ['company_name', 'street_address', 'city', 'state', 'phone', 'email']
+    success_url = 'hello'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        context = super().get_context_data()
+        billheader = context['billheader'] # billheader object
+        formset = BillLineFormSet(self.request.POST, instance = billheader)
+        if formset.is_valid():
+            formset.save()
+        return super().form_valid(form)
+
+
+    def get_success_url(self, **kwargs):
+        # return to UpdateInvoice view
+        pk = self.kwargs['pk'] # primary key is found in url kwargs
+        return reverse('editinvoice', kwargs={'pk': pk})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        context['title'] = 'Billing Update View'
+        billheader = context['billheader'] # billheader object
+        context['BillLineFormSet'] = BillLineFormSet(instance = billheader)
+        return context
+
+
+
 @method_decorator(login_required, name = 'dispatch')
 class BillListView(ListView):
-
     model = BillHeader
     paginate_by = 5  # if pagination is desired
     template_name = 'billing/billinghome.html'
@@ -67,13 +106,12 @@ class BillListView(ListView):
         context = super().get_context_data(**kwargs)
         context['now'] = timezone.now()
         context['title'] = 'Billing List View Home'
-        print(context)
         return context
-
 
     def get_queryset(self):
         queryset = BillHeader.objects.filter(user = self.request.user)
         return queryset
+
 
 
 @login_required
