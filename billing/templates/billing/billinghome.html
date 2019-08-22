@@ -3,17 +3,22 @@
 {% block content %}
     <h1>{{ title }}</h1>
 
-    {% if user.is_authenticated %}
-        <h4>Created Articles</h4>
-    {% else %}
-        <h4>No Information</h4>
-    {% endif %}
+    {% for post in object_list %}
 
-
-    <h1>Articles</h1>
-    <ul>
-    {% for article in object_list %}
-        <li>{{ article}} </li>
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                <b>Company: </b>  <a class="mr-2" href="#">{{ post.company_name }}</a>
+                <small class="text-muted">{{ post.date_created | date:"F d, Y" }}</small>
+                </div>
+                <b>City: </b>  <a class="article-title" href="#">{{ post.email }}</a>
+                <b>State: </b>  <a class="article-content">{{ post.age }}</a>
+                <b>Edit: </b>  <a class="article-content" href="{{ post.id }}/detail">{{ post.id }}</a>
+                <br>
+                <a class="article-content" href="{{ post.id }}/edit">Edit</a>
+            </div>
+        </article>
+    
     {% empty %}
         <li>No articles yet.</li>
     {% endfor %}

@@ -4,7 +4,7 @@
 <h1>{{ title }}</h1>
 <p>Basic information here</p>
 
-<form action="." method="post"> 
+<form action="" method="post"> 
     {% csrf_token %}
     
     <table>
@@ -12,6 +12,9 @@
     </table>
     
     <br><br>
+    
+    {{ BillLineFormSet.management_form }}
+    {{ BillLineFormSet.as_p }}
     
     <input type="submit" value="Submit Button">
 </form>
