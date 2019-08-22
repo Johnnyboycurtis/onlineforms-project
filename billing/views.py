@@ -5,6 +5,8 @@ from django.utils.decorators import method_decorator
 from .forms import BillHeaderForm, BillLineFormSet
 from .models import BillHeader, BillLines
 from django.views.generic.edit import CreateView, UpdateView
+from django.utils import timezone
+from django.views.generic.list import ListView
 
 
 @login_required
@@ -54,6 +56,24 @@ class UpdateBillHeader(UpdateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+@method_decorator(login_required, name = 'dispatch')
+class BillListView(ListView):
+
+    model = BillHeader
+    paginate_by = 5  # if pagination is desired
+    template_name = 'billing/billinghome.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        context['title'] = 'Billing List View Home'
+        print(context)
+        return context
+
+
+    def get_queryset(self):
+        queryset = BillHeader.objects.filter(user = self.request.user)
+        return queryset
 
 
 @login_required

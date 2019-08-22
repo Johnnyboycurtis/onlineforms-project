@@ -1,0 +1,23 @@
+{% extends "mainapp/base.html" %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+
+    {% if user.is_authenticated %}
+        <h4>Created Articles</h4>
+    {% else %}
+        <h4>No Information</h4>
+    {% endif %}
+
+
+    <h1>Articles</h1>
+    <ul>
+    {% for article in object_list %}
+        <li>{{ article}} </li>
+    {% empty %}
+        <li>No articles yet.</li>
+    {% endfor %}
+    </ul>
+    
+{% endblock content %}
+
