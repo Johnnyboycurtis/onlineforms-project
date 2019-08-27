@@ -13,7 +13,7 @@ class BillLineForm(ModelForm):
         model = BillLines
         fields = ('description', 'quantity', 'unit_price')
         widgets = {
-          "description": Textarea(attrs={'rows':2, 'cols':20}),
+          "description": Textarea(attrs={'rows':1, 'cols':20}),
         }
 
 
